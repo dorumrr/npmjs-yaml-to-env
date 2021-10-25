@@ -1,32 +1,58 @@
 import fs from 'fs';
+import dotNotation from './lib/dotNotation';
+import IConfig from './lib/interfaces/IConfig';
 const yamlerParser = require('./lib/yamler');
 
+const yamlToEnv = (
+  config: IConfig | string | any, // only IConfig starting with v5
+  topPropertyPath?: string | null, // legacy
+  verbose?: boolean // legacy
+): any => {
 
-const yamlToEnv = (pathToYamlFile: string | null | undefined, topPropertyPath?: string|null, verbose?: boolean): any => {
+  // support legacy, remove starting with v5
+  if (typeof config === ("string")) return require('./legacy').default(config, topPropertyPath, verbose);
 
-  if (!pathToYamlFile) {
-    throw Error(`- [yamlToEnv] - ERROR: Please pass the path to the yaml file as an argument. Example: yamlToEnv('./myYamlFile.yaml'); Pass true as a second parameter for verbose mode.`);
-  }
+  /* *************************************************************************************************************************** */
+  /* *************************************************** v 4.0.0 *************************************************************** */
+
+  let yamlFileContents: any;
+  let parsedYamlFile: Object;
+  let exposedVars: any;
+
   try {
-    const yamlFile = fs.readFileSync(pathToYamlFile, 'utf8');
-
+    try {
+      yamlFileContents = fs.readFileSync(config.yamlPath, 'utf8');
+    } catch (e: any) {
+      if (!e.message) console.log(e);
+      throw Error(`Cannot locate the yaml file. Make sure the path is right. ${e.message || ''}`)
+    }
 
     try {
-      const parsed = yamlerParser.parse(yamlFile);
-      const mergeEnv = topPropertyPath && topPropertyPath.length && parsed[topPropertyPath] ? parsed[topPropertyPath] : parsed;
-      process.env = {
-        ...process.env,
-        ...mergeEnv
-      };
-      if (verbose) {
-        console.log('\n - [yamlToEnv] - \nAdded to process.env:\n', mergeEnv , '\n - [yamlToEnv] -\n');
-      }
+      parsedYamlFile = yamlerParser.parse(yamlFileContents);
     } catch (e: any) {
-      throw Error(e.error || e);
+      if (!e.message) console.log(e);
+      throw Error(`The yaml file could not be parsed. Make sure you provide a valid yaml format. ${e.message || ''}.`);
     }
-  } catch {
-    console.log('\n - [yamlToEnv] - WARNINIG: Cannot find the YAML file! This might be expected, for instance, if you are currently deploying on Google App Engine.!\n');
+    try {
+      exposedVars = (config.exposeVariables || []).reduce((acc: any, val: any) => (val ? {
+        ...acc,
+        [`${(config.prefix || 'YAML')}_${(val.split('.').length ? val.split('.')[Number(val.split('.').length) - 1] : val)}`]: dotNotation(parsedYamlFile, val)
+      } : acc), {});
+    } catch (e: any) {
+      if (!e.message) console.log(e);
+      console.log(e);
+      throw Error(`One or more paths to your variables are incorrect. ${e.message || ''}.`)
+    }
+    process.env = {
+      ...process.env,
+      ...exposedVars
+    }
+    if (config.verbose) console.log(` - [yaml-to-env] -\nThe following yaml variables are now available via procces.env:\n${JSON.stringify(exposedVars, null, 2)}\n - [yaml-to-env] - `)
+
+  } catch (e: any) {
+    console.log(e);
   }
   return process.env;
 }
+
 export default yamlToEnv;

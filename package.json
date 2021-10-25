@@ -15,10 +15,12 @@
   "scripts": {
     "build": "tsc",
     "postbuild": "copyfiles -u 1 src/lib/**/* dist/",
-    "prepublish": "npm run build",
+    "prepublish": "npm run build && npn run test",
     "prepare": "npm run build",
-    "test": "npm run build && ts-node-dev test/test.ts",
-    "dev": "npm run test"
+    "test:current": "ts-node-dev test/test.ts",
+    "test:legacy": "ts-node-dev test/test-legacy.ts",
+    "test": "echo '\nBuilding...\n' && npm run build && echo '\nTesting Legacy version...\n' && npm run test:legacy && echo '\nTesting current version...\n' &&  npm run test:current",
+    "dev": "ts-node-dev test/test.ts"
   },
   "publishConfig": {
     "access": "public"

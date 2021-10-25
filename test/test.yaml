@@ -8,10 +8,15 @@ resources:
   memory_gb: 1.5
   disk_size_gb: 10
 
+test:
+  one:
+    two:
+      three: success
+  
 env_variables:
-  NODE_ENV: 'production'
-  API_DB_USERNAME: 'dbuser'
-  API_DB_PASSWORD: 'dbpass'
+  NODE_ENV: production
+  API_DB_USERNAME: dbuser
+  API_DB_PASSWORD: 'dbpa$$¢'
   CONTACT_EMAIL: 
     - 'someone@somewhere.exists'
     - 'anyone@somewhere.exists'
