@@ -15,7 +15,7 @@
   "scripts": {
     "build": "tsc",
     "postbuild": "copyfiles -u 1 src/lib/**/* dist/",
-    "prepublish": "npm run build && npm run test",
+    "prepublishOnly": "npm run test",
     "prepare": "npm run build",
     "test:current": "ts-node-dev test/test.ts",
     "test:legacy": "ts-node-dev test/test-legacy.ts",
