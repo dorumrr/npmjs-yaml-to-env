@@ -4,7 +4,7 @@ const legacy = (yamlPath: string, topPropertyPath?: string | null, verbose?: boo
   if (!yamlPath) {
     throw Error(`- [yamlToEnv] - ERROR: Please pass the path to the yaml file as an argument. Example: yamlToEnv('./myYamlFile.yaml'); Pass true as a second parameter for verbose mode.`);
   }
-  console.log(`- [yaml-to-env] - NOTICE: You are using yaml-to-env in a way that will be soon deprecated. Although this mode will be supported for a while, I strongly recommend upgrading to the newest version and follow the new documentation.`);
+  console.log(`- [yaml-to-env] - NOTICE: You are using yaml-to-env in a way that will be soon deprecated. Although this mode will be supported for a while, I strongly recommend upgrading to the latest version and follow the new documentation: https://www.npmjs.com/package/yaml-to-env`);
   try {
     const yamlFile = fs.readFileSync(String(yamlPath), 'utf8');
     try {
