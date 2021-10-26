@@ -38,6 +38,10 @@ const yamlToEnv = (
         ...acc,
         [`${(config.prefix || 'YAML')}_${(val.split('.').length ? val.split('.')[Number(val.split('.').length) - 1] : val)}`]: dotNotation(parsedYamlFile, val)
       } : acc), {});
+      if (exposedVars[`${(config.prefix || 'YAML')}_NODE_ENV`]) {
+        exposedVars.NODE_ENV = exposedVars[`${(config.prefix || 'YAML')}_NODE_ENV`];
+        delete exposedVars[`${(config.prefix || 'YAML')}_NODE_ENV`];
+      }
     } catch (e: any) {
       if (!e.message) console.log(e);
       console.log(e);

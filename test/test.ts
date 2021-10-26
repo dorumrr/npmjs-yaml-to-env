@@ -3,7 +3,7 @@ import yamlToEnv from "../src";
 
 yamlToEnv({
   yamlPath: './test/test.yaml',
-  exposeVariables: ['test.one.two.three'],
+  exposeVariables: ['test.one.two.three', 'env_variables.NODE_ENV'],
   prefix: 'YAML',
   verbose: true
 });
