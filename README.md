@@ -1,4 +1,4 @@
-# yaml-to-env v4
+# yaml-to-env
 
 **This package adds any desired YAML configuration variables to Node.js' `process.env`**
 
@@ -70,7 +70,6 @@ env_variables:
 | :---   |   :---:  | :---: |    :---:      | :---    |
 | yamlPath | Yes | String | | "./app.yaml" |
 exposeVariables | No | Array of Strings | [] | ["service", "resources.cpu"] |
-prefix | No | String | YAML | "YML" |
 verbose | No | Boolean | false | true | 
 
 Please note that **`exposeVariable`** accepts *dot notation* paths to make it easier to meet your needs. According to the example above `["env_variables.API_DB_PASSWORD"]` will expose *`crazySecureDbPass`* via `process.env.YAML_API_DB_PASSWORD`. You can add as many as *dot notation* paths you'd like.
