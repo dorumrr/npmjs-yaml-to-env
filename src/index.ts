@@ -52,7 +52,7 @@ const yamlToEnv = (
 
   } catch (e: any) {
     if (!e.message) console.log(e);
-    console.log(` - [yaml-to-env] - NOTICE/ERROR: If this occurs on Google App Engine or similar environment, it's safe to ignore. Otherwise ERROR: cannot locate the yaml file. Make sure the path is right. ${e.message || ''}`)
+    console.log(` - [yaml-to-env] - NOTICE: If this occurs on Google App Engine or a similar environment, it's safe to ignore. Otherwise this should be treated as an error as it cannot locate the yaml file. Make sure the path is right. ${e.message || ''}`)
   }
   return process.env;
 }
