@@ -69,9 +69,15 @@ env_variables:
 | Name   | Required |  Type | Default Value | Example |
 | :---   |   :---:  | :---: |    :---:      | :---    |
 | yamlPath | Yes | String | | "./app.yaml" |
-exposeVariables | No | Array of Strings | [] | ["service", "resources.cpu"] |
-verbose | No | Boolean | false | true | 
+| exposeVariables | No | Array of Strings | [] | ["service", "resources.cpu"] |
+| verbose | No | Boolean | false | true | 
+
 
 ---
 
-Please note that **`exposeVariable`** accepts *dot notation* paths to make it easier to meet your needs. According to the example above `["env_variables.API_DB_PASSWORD"]` will expose *`crazySecureDbPass`* via `process.env.YAML_API_DB_PASSWORD`. You can add as many as *dot notation* paths you'd like.
+Above **`exposeVariable`** array accepts *dot notation* paths to make it easier to access the desired properties. According to the example above `["env_variables.API_DB_PASSWORD"]` will expose *`crazySecureDbPass`* via `process.env.API_DB_PASSWORD`. You can add as many as *dot notation* paths you'd like.
+
+---
+---
+
+**NOTE**: If you deploy your application on services like Google App Engine, the .yaml file may no longer be available at the deployment time and a notice will be shown without impacting the functionality as the environment variables will be passed in straight from your .yaml file.
