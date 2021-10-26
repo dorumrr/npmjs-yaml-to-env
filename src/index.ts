@@ -20,12 +20,12 @@ const yamlToEnv = (
   let exposedVars: any;
 
   try {
-    try {
+    // try {
       yamlFileContents = fs.readFileSync(config.yamlPath, 'utf8');
-    } catch (e: any) {
-      if (!e.message) console.log(e);
-      throw Error(`Cannot locate the yaml file. Make sure the path is right. ${e.message || ''}`)
-    }
+    // } catch (e: any) {
+    //   if (!e.message) console.log(e);
+    //   console.log(` - [yaml-to-env] - NOTICE: If this occurs on Google App Engine or similar environment, it's safe to ignore. Otherwise cannot locate the yaml file. Make sure the path is right. ${e.message || ''}`)
+    // }
 
     try {
       parsedYamlFile = yamlerParser.parse(yamlFileContents);
@@ -54,7 +54,8 @@ const yamlToEnv = (
     if (config.verbose) console.log(` - [yaml-to-env] -\nThe following yaml variables are now available via procces.env:\n${JSON.stringify(exposedVars, null, 2)}\n - [yaml-to-env] - `)
 
   } catch (e: any) {
-    console.log(e);
+    if (!e.message) console.log(e);
+    console.log(` - [yaml-to-env] - NOTICE/ERROR: If this occurs on Google App Engine or similar environment, it's safe to ignore. Otherwise ERROR: cannot locate the yaml file. Make sure the path is right. ${e.message || ''}`)
   }
   return process.env;
 }
