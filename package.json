@@ -1,6 +1,6 @@
 {
   "name": "yaml-to-env",
-  "version": "4.0.1",
+  "version": "4.1.0",
   "description": "Takes a YAML configuration file and ads it to Node's process.env",
   "author": {
     "name": "Doru Moraru",
