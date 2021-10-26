@@ -2,9 +2,9 @@ import fs from 'fs';
 const yamlerParser = require('./lib/yamler');
 const legacy = (yamlPath: string, topPropertyPath?: string | null, verbose?: boolean): any => {
   if (!yamlPath) {
-    throw Error(`- [yamlToEnv] - ERROR: Please pass the path to the yaml file as an argument. Example: yamlToEnv('./myYamlFile.yaml'); Pass true as a second parameter for verbose mode.`);
+    throw Error(`\n - [yamlToEnv] - ERROR: Please pass the path to the yaml file as an argument. Example: yamlToEnv('./myYamlFile.yaml\n                 See https://www.npmjs.com/package/yaml-to-env for documentation.')\n`);
   }
-  console.log(`- [yaml-to-env] - NOTICE: You are using yaml-to-env in a way that will be soon deprecated. Although this mode will be supported for a while, I strongly recommend upgrading to the latest version and follow the new documentation: https://www.npmjs.com/package/yaml-to-env`);
+  console.log(`\n - [yaml-to-env] - NOTICE: You are using yaml-to-env in a way that will be soon deprecated. Please update to the latest version: https://www.npmjs.com/package/yaml-to-env\n`);
   try {
     const yamlFile = fs.readFileSync(String(yamlPath), 'utf8');
     try {

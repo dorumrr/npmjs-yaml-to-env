@@ -20,18 +20,12 @@ const yamlToEnv = (
   let exposedVars: any;
 
   try {
-    // try {
-      yamlFileContents = fs.readFileSync(config.yamlPath, 'utf8');
-    // } catch (e: any) {
-    //   if (!e.message) console.log(e);
-    //   console.log(` - [yaml-to-env] - NOTICE: If this occurs on Google App Engine or similar environment, it's safe to ignore. Otherwise cannot locate the yaml file. Make sure the path is right. ${e.message || ''}`)
-    // }
-
+    yamlFileContents = fs.readFileSync(config.yamlPath, 'utf8');
     try {
       parsedYamlFile = yamlerParser.parse(yamlFileContents);
     } catch (e: any) {
       if (!e.message) console.log(e);
-      throw Error(`The yaml file could not be parsed. Make sure you provide a valid yaml format. ${e.message || ''}.`);
+      throw Error(`\n - [yaml-to-env] - The yaml file could not be parsed. Make sure you provide a file in a valid yaml format. ${e.message || ''}.\n`);
     }
     try {
       exposedVars = (config.exposeVariables || []).reduce((acc: any, val: any) => (val ? {
@@ -42,7 +36,7 @@ const yamlToEnv = (
     } catch (e: any) {
       if (!e.message) console.log(e);
       console.log(e);
-      throw Error(`One or more paths to your variables are incorrect. ${e.message || ''}.`)
+      throw Error(`\n - [yaml-to-env] - One or more paths to your variables are incorrect. ${e.message || ''}.\n`)
     }
     process.env = {
       ...process.env,
@@ -52,7 +46,7 @@ const yamlToEnv = (
 
   } catch (e: any) {
     if (!e.message) console.log(e);
-    console.log(` - [yaml-to-env] - NOTICE: If this occurs on Google App Engine or a similar environment, it's safe to ignore. Otherwise this should be treated as an error as it cannot locate the yaml file. Make sure the path is right. ${e.message || ''}`)
+    console.log(`\n - [yaml-to-env] - NOTICE: If this occurs on Google App Engine or a similar environment, it's safe to ignore.\n                   Otherwise this should be treated as an error as the yaml file can't be located.\n                   Make sure the path is right. ${e.message || ''}\n`)
   }
   return process.env;
 }
