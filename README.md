@@ -27,13 +27,13 @@ yamlToEnv({
     ]
 });
 
-console.log(process.env.YAML_runtime); // ==> 'nodejs'
+console.log(process.env.runtime); // ==> 'nodejs'
 
-console.log(process.env.YAML_cpu); // ==> 1
+console.log(process.env.cpu); // ==> 1
 
-console.log(process.env.YAML_API_DB_USERNAME); // ==> 'dbuser'
+console.log(process.env.API_DB_USERNAME); // ==> 'dbuser'
 
-console.log(process.env.YAML_API_DB_PASSWORD); // ==> 'dbpa$$¢'
+console.log(process.env.API_DB_PASSWORD); // ==> 'dbpa$$¢'
 ```
 
 ---
