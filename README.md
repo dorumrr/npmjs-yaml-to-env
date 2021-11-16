@@ -31,9 +31,9 @@ console.log(process.env.runtime); // ==> 'nodejs'
 
 console.log(process.env.cpu); // ==> 1
 
-console.log(process.env.API_DB_USERNAME); // ==> 'dbuser'
+console.log(process.env.API_DB_USERNAME); // ==> 'crazySecureDbUser'
 
-console.log(process.env.API_DB_PASSWORD); // ==> 'dbpa$$¢'
+console.log(process.env.API_DB_PASSWORD); // ==> 'crazySecureDbPass'
 ```
 
 ---
